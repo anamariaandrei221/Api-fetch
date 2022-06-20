@@ -1,0 +1,39 @@
+<div>
+
+<div class="container">
+
+    <table class="table table-bordered table-striped">
+      <thead style="position: sticky; top: 0" class="thead-danger">
+        <tr>
+          <th class="header" scope="col">Index</th>
+          <th class="header" scope="col">Nume</th>
+          <th class="header" scope="col">Status
+            <select class="form-select" aria-label="Default select example"  (change)="selectChangeHandler($event)">
+                <option selected>All</option>
+                <option value="Available">Available</option>
+                <option value="Pending">Pending</option>
+                <option value="Sold">Sold</option>
+              </select>
+          </th>
+          <th class="header" scope="col">Actiuni</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pet of petData; let i = index">
+          <td id="{{ i + 1 }}">{{ i + 1 }}</td>
+          <td>{{ pet.name }}</td>
+          <td>{{ pet.status }}</td>
+          <td class="buttons">
+            <button type="button" class="btn btn-primary" (click)="goToPage('Informatii')">Vizualizare</button>
+            <button type="button" class="btn btn-success" (click)="goToPage('Editare')">Editare</button>
+            <button type="button" class="btn btn-danger" >Stergere</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+</div>  
+<div class="box">
+<p class="bubble speech" (click)="goToPage('Adaugare')" >Apasă aici pentru a adăuga un nou prieten! </p>
+</div>
+</div>
