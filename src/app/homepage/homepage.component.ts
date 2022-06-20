@@ -1,5 +1,6 @@
+import { PetsService } from './../pets.service';
 import { Component, OnInit, ɵsetAllowDuplicateNgModuleIdsForTest } from '@angular/core';
-import {PetsService} from "../pets.service";
+
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { forkJoin } from "rxjs";
@@ -20,26 +21,30 @@ export class HomepageComponent implements OnInit {
     this.selectedStatus = event.target.value;
     console.log(this.selectedStatus);
   }
-  constructor(public http: HttpClient,private router : Router) {
+  constructor(public pet: PetsService,private router : Router) {
 
+    this.pet.getData1().subscribe(data=> {
+      this.petData=data;
+    }
+      );
       
   }
   ngOnInit(): void {
-    let autoComplete: any=[];
-    const request1 = this.http.get(
-      "https://petstore.swagger.io/v2/pet/findByStatus?status=available"
-    );
-    const request2 = this.http.get("https://petstore.swagger.io/v2/pet/findByStatus?status=pending");
+    // let autoComplete: any=[];
+    // const request1 = this.http.get(
+    //   "https://petstore.swagger.io/v2/pet/findByStatus?status=available"
+    // );
+    // const request2 = this.http.get("https://petstore.swagger.io/v2/pet/findByStatus?status=pending");
 
-    const requestArray = [];
-    requestArray.push(request1);
-    requestArray.push(request2);
+    // const requestArray = [];
+    // requestArray.push(request1);
+    // requestArray.push(request2);
 
-    forkJoin(requestArray)
-      .pipe(map(data => data.reduce((result, arr) =>[...result,...arr],[]))).subscribe(data => {
-        autoComplete = data;
-        console.log(autoComplete);
-      });
+    // forkJoin(requestArray)
+    //   .pipe(map(data => data.reduce((result, arr) =>[...result,...arr],[]))).subscribe(data => {
+    //     autoComplete = data;
+    //     console.log(autoComplete);
+    //   });
 
    
   }
